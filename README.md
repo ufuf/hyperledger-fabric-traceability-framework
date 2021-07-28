@@ -150,6 +150,24 @@ Now you are ready to start interacting with the Fabric blockchain network.
 
 ### 6.1. Quickly run the Blockchain network, Blockchain Explorer and HTTP server
 
+Before run.sh you should do these 3 steps:
+
+- Add fabric bin to your path:
+```
+export PATH=$PATH:/home/ubuntu/go/fabric-samples/bin
+```
+- install jq:
+```
+sudo apt-get install jq
+```
+- npm install in folders:
+```
+cd apps/lib/
+npm install
+cd ../server
+npm install
+```
+
 For a quick startup, run:
 
 ```
