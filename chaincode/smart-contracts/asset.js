@@ -4,71 +4,71 @@
  * Possible asset states
  */
 const state = {
-	INITIAL: 'INITIAL',
-	INTERMEDIARY: 'INTERMEDIARY',
-	FINAL: 'FINAL',
+    INITIAL: 'INITIAL',
+    INTERMEDIARY: 'INTERMEDIARY',
+    FINAL: 'FINAL',
 };
 
 /**
  * Asset class extends State class
  */
 class Asset {
-	
-	constructor(assetKey, assetInfo) {
-		this.contractNamespace = 'traceabilitysc.asset';
-		this.key = assetKey;
-		this.currentState = null;
-		Object.assign(this, assetInfo);
-	}
 
-	/**
-	 * Getters and setters
-	*/
-	getAsset() {
-		return this;
-	}
+    constructor(assetKey, assetInfo) {
+        this.contractNamespace = 'traceabilitysc.asset';
+        this.key = assetKey;
+        this.currentState = null;
+        Object.assign(this, assetInfo);
+    }
 
-	setAsset(newData){
-		Object.assign(this, newData);
-	}
+    /**
+     * Getters and setters
+    */
+    getAsset() {
+        return this;
+    }
 
-	getStatus(){
-		return this.currentState;
-	}
+    setAsset(newData) {
+        Object.assign(this, newData);
+    }
 
-	static getContractNamespace() {
-		return 'traceabilitysc.asset';
-	}
+    getStatus() {
+        return this.currentState;
+    }
 
-	/**
-	 * Methods to encapsulate asset state changes
-	 * And query about a specific status
-	 */
+    static getContractNamespace() {
+        return 'traceabilitysc.asset';
+    }
 
-	setInitial() {
-		this.currentState = state.INITIAL;
-	}
+    /**
+     * Methods to encapsulate asset state changes
+     * And query about a specific status
+     */
 
-	isInitial(){
-		return this.currentState === state.INITIAL;
-	}
+    setInitial() {
+        this.currentState = state.INITIAL;
+    }
 
-	setIntermediary() {
-		this.currentState = state.INTERMEDIARY;
-	}
+    isInitial() {
+        return this.currentState === state.INITIAL;
+    }
 
-	isIntermediary(){
-		return this.currentState === state.INTERMEDIARY;
-	}
+    setIntermediary() {
+        this.currentState = state.INTERMEDIARY;
+    }
 
-	setFinal() {
-		this.currentState = state.FINAL;
-	}
+    isIntermediary() {
+        return this.currentState === state.INTERMEDIARY;
+    }
 
-	isFinal(){
-		return this.currentState === state.FINAL;
-	}
-	
+    setFinal() {
+        this.currentState = state.FINAL;
+    }
+
+    isFinal() {
+        return this.currentState === state.FINAL;
+    }
+
 }
 
 module.exports = Asset;

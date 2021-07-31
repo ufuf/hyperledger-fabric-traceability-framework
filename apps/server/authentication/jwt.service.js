@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken');
-const { 
+const {
 	NotFound,
 	BadRequest,
 } = require('../error-handling/errors');
@@ -8,17 +8,17 @@ class jwtService {
 
 	getSecret(userType) {
 		let secret;
-		switch(userType){
-			case 'ASSET':
-				secret = process.env.ASSET_SECRET;
+		switch (userType) {
+			case 'USER':
+				secret = process.env.USER_SECRET;
 				break
 			default:
 				throw new NotFound('User type not found');
 		}
 		return secret;
 	}
-	
-	sign(payload, userType){
+
+	sign(payload, userType) {
 		const secret = this.getSecret(userType);
 		const options = {
 			algorithm: 'HS256',
@@ -30,12 +30,12 @@ class jwtService {
 
 	// The functions bellow are Express middleware
 
-	verificationMiddlewareFactory(userType){
+	verificationMiddlewareFactory(userType) {
 		const secret = this.getSecret(userType);
-		const verificationMiddleware = function(req, res, next){
+		const verificationMiddleware = function (req, res, next) {
 			let userInfo = null;
 			try {
-				if(!req.headers.authorization) throw new BadRequest('Missing JWT');
+				if (!req.headers.authorization) throw new BadRequest('Missing JWT');
 				const jwt = req.headers.authorization.split(' ')[1]; // 'Bearer $TOKEN', we just need the token part
 				userInfo = jsonwebtoken.verify(jwt, secret);
 			} catch (e) {

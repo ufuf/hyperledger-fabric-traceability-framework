@@ -4,7 +4,7 @@ console.log('Environment: ', process.env.MODE);
 
 // Importing modules
 const express = require('express');
-const app = express(); 
+const app = express();
 // const path = require('path');
 
 // Importing middleware
@@ -20,7 +20,7 @@ app.use(helmet()); // Sets response headers securely
 app.use(bodyParser.urlencoded({ extended: false })); // form urlencoded data
 app.use(bodyParser.json()); // json data
 app.use(bodyParser.text()); // text data
-app.use(bodyParser.raw({ 
+app.use(bodyParser.raw({
 	type: ['image/jpeg', 'image/png'],
 	limit: '10mb'
 }));
@@ -30,9 +30,11 @@ const api = express.Router();
 // Routing 
 app.get('/', async (req, res, next) => { // home endpoint
 	// res.status(200).sendFile(path.join(__dirname, 'public/index.html')); // path is used for interoperability in different OSs	
-	res.status(200).send('<p> Hello Traceability framework! </p>');	
+	res.status(200).send('<p> Hello Traceability framework! </p>');
 });
 
+const userRouter = require('./routes/user/router');
+api.use('/user', userRouter);
 const assetRouter = require('./routes/asset/router');
 api.use('/asset', assetRouter);
 const dataRouter = require('./routes/data/router');
