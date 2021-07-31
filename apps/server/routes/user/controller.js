@@ -67,7 +67,7 @@ class UsersController {
 
 	async setActiveState(req, res, next) {
 		const userInfo = req.user;
-		delete userInfo.password;
+
 		let result = null;
 		try {
 			result = await usersService.setActiveState(userInfo);
@@ -80,7 +80,7 @@ class UsersController {
 
 	async setInActiveState(req, res, next) {
 		const userInfo = req.user;
-		delete userInfo.password;
+
 		let result = null;
 		try {
 			result = await usersService.setInActiveState(userInfo);
