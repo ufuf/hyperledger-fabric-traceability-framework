@@ -19,6 +19,10 @@ usersRouter.post('/login', authenticateUserValidator, (req, res, next) => {
 	usersController.authenticateUser(req, res, next);
 });
 
+usersRouter.post('/set-active', (req, res, next) => {
+	usersController.setActiveState(req, res, next);
+});
+
 // JWT protection for the endpoints below
 const jwtService = new JwtService();
 const userJwtVerifier = jwtService.verificationMiddlewareFactory('USER');
@@ -30,10 +34,6 @@ usersRouter.get('/', getUserValidator, (req, res, next) => {
 
 usersRouter.patch('/', updateUserValidator, (req, res, next) => {
 	usersController.updateUser(req, res, next);
-});
-
-usersRouter.post('/set-active', (req, res, next) => {
-	usersController.setActiveState(req, res, next);
 });
 
 usersRouter.post('/set-inactive', (req, res, next) => {
