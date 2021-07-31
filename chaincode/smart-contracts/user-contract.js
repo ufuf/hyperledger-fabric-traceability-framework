@@ -98,7 +98,7 @@ class UserContract extends Contract {
 
 		// Credentials check
 		if (userCredentials.password === user.password) {
-			if (user.isActive)
+			if (user.isActive())
 				return {
 					success: true,
 					data: user,
