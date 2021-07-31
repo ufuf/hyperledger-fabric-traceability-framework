@@ -94,14 +94,14 @@ class UserContract extends Contract {
 		}
 
 		// Parse stored user info as JSON
-		const user = JSON.parse(userJson);
-
+		const userInfo = JSON.parse(userJson);
+		const user = new User(userKey, userInfo);
 		// Credentials check
-		if (userCredentials.password === user.password) {
+		if (userCredentials.password === userInfo.password) {
 			if (user.isActive())
 				return {
 					success: true,
-					data: user,
+					data: userInfo,
 					error: null,
 				};
 			else
