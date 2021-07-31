@@ -12,6 +12,9 @@ class jwtService {
 			case 'USER':
 				secret = process.env.USER_SECRET;
 				break
+			case 'ASSET':
+				secret = process.env.ASSET_SECRET;
+				break
 			default:
 				throw new NotFound('User type not found');
 		}
