@@ -27,6 +27,9 @@ class UserService {
 		if (result.error === 'Incorrect password, please try again') {
 			throw new BadRequest(result.error);
 		}
+		if (result.error !== null)
+			throw new BadRequest(result.error);
+
 		const jwt = jwtService.sign(result.data, 'USER');
 		return {
 			success: result.success,
