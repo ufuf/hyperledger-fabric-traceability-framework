@@ -40,6 +40,7 @@ class AssetService {
 		if (result.error === 'Asset not found in the ledger') {
 			throw new NotFound(result.error);
 		}
+		console.log(result);
 		if (result.error !== '' || result.error !== undefined || result.error !== null) {
 			throw new BadRequest(result.error);
 		}
