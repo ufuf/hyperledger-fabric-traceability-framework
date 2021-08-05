@@ -23,7 +23,7 @@ class AssetsController {
 		const query = {
 			selector: {
 				contractNamespace: 'traceabilitysc.asset',
-				id: req.user.id,
+				id: req.body.id,
 			}
 		};
 		let result = null;
