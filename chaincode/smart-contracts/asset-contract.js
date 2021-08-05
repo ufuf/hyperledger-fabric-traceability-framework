@@ -122,9 +122,9 @@ class AssetContract extends Contract {
 
 		// Create and update Asset object
 		const storedAssetInfo = JSON.parse(assetJson);
-		const asset = new Asset(assetKey, storedAssetInfo);
+		const currAsset = new Asset(assetKey, storedAssetInfo);
 
-		if (asset.isCUSTOMER()) {
+		if (currAsset.isCUSTOMER()) {
 			return {
 				success: false,
 				data: null,
@@ -133,7 +133,7 @@ class AssetContract extends Contract {
 		}
 
 		// Update the asset object (Asset class not necessary here)
-		asset = JSON.parse(assetJson);
+		const asset = JSON.parse(assetJson);
 		const updatedAsset = Object.assign(asset, updatedAssetInfo);
 
 		// Update the ledger
