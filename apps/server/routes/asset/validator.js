@@ -8,6 +8,10 @@ const addAssetValidator = celebrate({
 		name: Joi.string()
 			.max(64)
 			.required(),
+		data: Joi.string()
+			.min(0)
+			.max(10000)
+			.required(),
 	})
 });
 
@@ -28,7 +32,10 @@ const updateAssetValidator = celebrate({
 			.max(64)
 			.required(),
 		name: Joi.string()
-			.max(64)
+			.max(64),
+		data: Joi.string()
+			.min(0)
+			.max(10000),
 	})
 });
 
