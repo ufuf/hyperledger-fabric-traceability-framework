@@ -151,12 +151,9 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINFULLFILLMENTState(ctx, infoJson) {
-		// Transform JSON into an object
-		const info = JSON.parse(infoJson);
-
+	async setINFULLFILLMENTState(ctx, assetId) {
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -197,12 +194,9 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINSHOPState(ctx, infoJson) {
-		// Transform JSON into an object
-		const info = JSON.parse(infoJson);
-
+	async setINSHOPState(ctx, assetId) {
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -244,12 +238,9 @@ class AssetContract extends Contract {
 	}
 
 
-	async setCUSTOMERState(ctx, infoJson) {
-		// Transform JSON into an object
-		const info = JSON.parse(infoJson);
-
+	async setCUSTOMERState(ctx, assetId) {
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
