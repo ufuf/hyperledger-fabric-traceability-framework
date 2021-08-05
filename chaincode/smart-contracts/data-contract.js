@@ -118,7 +118,7 @@ class DataContract extends Contract {
 	async getHistoryForAssetKey(ctx, assetIdJson) {
 		const assetId = JSON.parse(assetIdJson);
 		// console.log(assetId);
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		// console.log(assetKey);
 		const keyStateHistoryIterator = await ctx.stub.getHistoryForKey(assetKey);
 		// console.log(keyStateHistoryIterator);
