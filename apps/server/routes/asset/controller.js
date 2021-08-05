@@ -61,6 +61,8 @@ class AssetsController {
 				result = await assetsService.setINSHOPState(assetId);
 			else if (state == "CUSTOMER")
 				result = await assetsService.setCUSTOMERState(assetId);
+			else
+				throw new BadRequest("Unknown or intransferable state");
 		} catch (e) {
 			next(e);
 			return null; // Execution continues after the next() call finishes, so we have to 'return' here to avoid sending a response to clients twice
