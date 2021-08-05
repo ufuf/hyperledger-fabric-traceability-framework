@@ -48,6 +48,25 @@ class AssetsController {
 		}
 		res.status(200).json(result);
 	}
+
+	async setState(req, res, next) {
+		const assetId = req.body.id;
+		const state = req.body.state;
+
+		let result = null;
+		try {
+			if (state == "INFULLFILLMENT")
+				result = await assetsService.setINFULLFILLMENTState(assetId);
+			else if (state == "INSHOP")
+				result = await assetsService.setINSHOPState(assetId);
+			else if (state == "CUSTOMER")
+				result = await assetsService.setCUSTOMERState(assetId);
+		} catch (e) {
+			next(e);
+			return null; // Execution continues after the next() call finishes, so we have to 'return' here to avoid sending a response to clients twice
+		}
+		res.status(200).json(result);
+	}
 }
 
 module.exports = AssetsController;

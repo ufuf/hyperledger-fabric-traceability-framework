@@ -120,8 +120,20 @@ class AssetContract extends Contract {
 			};
 		}
 
+		// Create and update Asset object
+		const storedAssetInfo = JSON.parse(assetJson);
+		const asset = new Asset(assetKey, storedAssetInfo);
+
+		if (asset.isCUSTOMER()) {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset status is CUSTOMER, cannot update asset sold to CUSTOMER',
+			};
+		}
+
 		// Update the asset object (Asset class not necessary here)
-		const asset = JSON.parse(assetJson);
+		asset = JSON.parse(assetJson);
 		const updatedAsset = Object.assign(asset, updatedAssetInfo);
 
 		// Update the ledger
@@ -135,6 +147,145 @@ class AssetContract extends Contract {
 		return {
 			success: true,
 			data: updatedAsset,
+			error: null,
+		};
+	}
+
+	async setINFULLFILLMENTState(ctx, infoJson) {
+		// Transform JSON into an object
+		const info = JSON.parse(infoJson);
+
+		// Worker existence check
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetJsonBuffer = await ctx.stub.getState(assetKey);
+		const assetJson = assetJsonBuffer.toString();
+		if (!assetJson) {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset not found in the ledger',
+			};
+		}
+
+		// Create and update Asset object
+		const storedAssetInfo = JSON.parse(assetJson);
+		const asset = new Asset(assetKey, storedAssetInfo);
+
+		// Status update
+		if (asset.isInitial() || asset.isINSHOP()) {
+			asset.setINFULLFILLMENT();
+		} else {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset status is not INITIAL or INSHOP, cannot move to FULLFILLMENT state',
+			};
+		}
+
+		// Add transaction info
+		const txID = await ctx.stub.getTxID();
+		Object.assign(asset, { txID });
+
+		// Update the ledger
+		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(asset)));
+
+		// Return to apps
+		return {
+			success: true,
+			data: asset,
+			error: null,
+		};
+	}
+
+	async setINSHOPState(ctx, infoJson) {
+		// Transform JSON into an object
+		const info = JSON.parse(infoJson);
+
+		// Worker existence check
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetJsonBuffer = await ctx.stub.getState(assetKey);
+		const assetJson = assetJsonBuffer.toString();
+		if (!assetJson) {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset not found in the ledger',
+			};
+		}
+
+		// Create and update Asset object
+		const storedAssetInfo = JSON.parse(assetJson);
+		const asset = new Asset(assetKey, storedAssetInfo);
+
+		// Status update
+		if (asset.isINFULLFILLMENT()) {
+			asset.setINSHOP();
+		} else {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset status is not FULLFILLMENT, cannot move to SHOP state',
+			};
+		}
+
+		// Add transaction info
+		const txID = await ctx.stub.getTxID();
+		Object.assign(asset, { txID });
+
+		// Update the ledger
+		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(asset)));
+
+		// Return to apps
+		return {
+			success: true,
+			data: asset,
+			error: null,
+		};
+	}
+
+
+	async setCUSTOMERState(ctx, infoJson) {
+		// Transform JSON into an object
+		const info = JSON.parse(infoJson);
+
+		// Worker existence check
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
+		const assetJsonBuffer = await ctx.stub.getState(assetKey);
+		const assetJson = assetJsonBuffer.toString();
+		if (!assetJson) {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset not found in the ledger',
+			};
+		}
+
+		// Create and update Asset object
+		const storedAssetInfo = JSON.parse(assetJson);
+		const asset = new Asset(assetKey, storedAssetInfo);
+
+		// Status update
+		if (asset.isINSHOP()) {
+			asset.setCUSTOMER();
+		} else {
+			return {
+				success: false,
+				data: null,
+				error: 'Asset status is not SHOP, cannot move to CUSTOMER state',
+			};
+		}
+
+		// Add transaction info
+		const txID = await ctx.stub.getTxID();
+		Object.assign(asset, { txID });
+
+		// Update the ledger
+		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(asset)));
+
+		// Return to apps
+		return {
+			success: true,
+			data: asset,
 			error: null,
 		};
 	}

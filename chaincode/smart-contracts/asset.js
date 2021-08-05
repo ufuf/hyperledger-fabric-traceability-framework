@@ -7,7 +7,7 @@ const state = {
     INITIAL: 'INITIAL',
     INFULLFILLMENT: 'IN FULLFILLMENT CENTER',
     INSHOP: 'IN SHOP',
-    FINAL: 'SOLD TO CUSTOMER',
+    CUSTOMER: 'SOLD TO CUSTOMER',
 };
 
 /**
@@ -70,12 +70,12 @@ class Asset {
         return this.currentState === state.INSHOP;
     }
 
-    setFINAL() {
-        this.currentState = state.FINAL;
+    setCUSTOMER() {
+        this.currentState = state.CUSTOMER;
     }
 
-    isFINAL() {
-        return this.currentState === state.FINAL;
+    isCUSTOMER() {
+        return this.currentState === state.CUSTOMER;
     }
 }
 

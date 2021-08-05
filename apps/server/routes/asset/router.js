@@ -27,4 +27,8 @@ assetsRouter.patch('/', updateAssetValidator, (req, res, next) => {
 	assetsController.updateAsset(req, res, next);
 });
 
+assetsRouter.post('/set-state', (req, res, next) => {
+	assetsController.setState(req, res, next);
+});
+
 module.exports = assetsRouter;
