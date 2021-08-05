@@ -220,6 +220,7 @@ class UserContract extends Contract {
 		// Status update
 		if (user.isInactive()) {
 			user.setActive();
+			user.updatedAt = info.updatedAt;
 		} else {
 			return {
 				success: false,
@@ -266,6 +267,7 @@ class UserContract extends Contract {
 		// Status update
 		if (user.isActive()) {
 			user.setInactive();
+			user.updatedAt = info.updatedAt;
 		} else {
 			return {
 				success: false,

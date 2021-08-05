@@ -59,6 +59,8 @@ class AssetsController {
 	async updateAsset(req, res, next) {
 		const updatedAssetInfo = req.body;
 		updatedAssetInfo.id = req.body.id;
+		updatedAssetInfo.updatedAt = new Date();
+
 		let result = null;
 		try {
 			result = await assetsService.updateAsset(updatedAssetInfo);
@@ -70,17 +72,18 @@ class AssetsController {
 	}
 
 	async setState(req, res, next) {
-		const assetId = req.body.id;
+		const updatedAssetInfo = req.body;
+		updatedAssetInfo.updatedAt = new Date();
 		const state = req.body.state;
 
 		let result = null;
 		try {
 			if (state == "INFULLFILLMENT")
-				result = await assetsService.setINFULLFILLMENTState(assetId);
+				result = await assetsService.setINFULLFILLMENTState(updatedAssetInfo);
 			else if (state == "INSHOP")
-				result = await assetsService.setINSHOPState(assetId);
+				result = await assetsService.setINSHOPState(updatedAssetInfo);
 			else if (state == "CUSTOMER")
-				result = await assetsService.setCUSTOMERState(assetId);
+				result = await assetsService.setCUSTOMERState(updatedAssetInfo);
 			else
 				throw new BadRequest("Unknown or intransferable state");
 		} catch (e) {
