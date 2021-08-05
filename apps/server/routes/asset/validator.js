@@ -26,7 +26,9 @@ const updateAssetValidator = celebrate({
 	body: Joi.object().keys({
 		id: Joi.string()
 			.max(64)
-			.required()
+			.required(),
+		name: Joi.string()
+			.max(64)
 	})
 });
 
