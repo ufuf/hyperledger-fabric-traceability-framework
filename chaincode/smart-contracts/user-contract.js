@@ -61,6 +61,7 @@ class UserContract extends Contract {
 
 		// Status update
 		user.setActive();
+		user.updatedAt = new Date();
 
 		// Add transaction info
 		const txID = await ctx.stub.getTxID();
