@@ -8,8 +8,19 @@ const addAssetValidator = celebrate({
 		name: Joi.string()
 			.max(64)
 			.required(),
-		data: Joi.object()
+		make: Joi.string()
+			.max(64)
 			.required(),
+		model: Joi.string()
+			.max(64)
+			.required(),
+		serialNumber: Joi.string()
+			.max(64)
+			.required(),
+		productionDate: Joi.string()
+			.max(64)
+			.required(),
+		extraData: Joi.object(),
 	})
 });
 
@@ -40,16 +51,23 @@ const updateAssetValidator = celebrate({
 			.required(),
 		name: Joi.string()
 			.max(64),
-		data: Joi.object(),
+		make: Joi.string()
+			.max(64),
+		model: Joi.string()
+			.max(64),
+		serialNumber: Joi.string()
+			.max(64),
+		productionDate: Joi.string()
+			.max(64),
+		ShopName: Joi.string()
+			.max(64),
+		ShopAddress: Joi.string()
+			.max(200),
+		ShopLocation: Joi.string()
+			.max(64),
+		extraData: Joi.object(),
 	})
 });
-
-// const setIntermediateStateValidator = celebrate({
-//   body: Joi.object().keys({ // The req.body object must be populated prior to the validation
-
-// 	})
-// });
-
 
 // All of these are middleware (a.k.a. functions)
 module.exports = {

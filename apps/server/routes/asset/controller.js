@@ -9,12 +9,10 @@ const {
 class AssetsController {
 
 	async addAsset(req, res, next) {
-		const assetInfo = {
-			createdAt: new Date(),
-			id: req.body.id,
-			name: req.body.name,
-			data: req.body.data
-		};
+
+		const assetInfo = req.body;
+		assetInfo.createdAt = new Date();
+
 		let result = null;
 		try {
 			result = await assetsService.addAsset(assetInfo);
@@ -45,7 +43,7 @@ class AssetsController {
 	async getAssetHistory(req, res, next) {
 		const updatedAssetInfo = req.params;
 		updatedAssetInfo.id = req.params.id;
-		
+
 		let result = null;
 		try {
 			result = await assetsService.getAssetHistory(updatedAssetInfo);
