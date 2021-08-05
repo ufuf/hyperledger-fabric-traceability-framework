@@ -163,24 +163,37 @@ class UserContract extends Contract {
 			};
 		}
 
-		// Update the user object (User class not necessary here)
-		const user = JSON.parse(userJson);
-		const updatedUser = Object.assign(user, updatedUserInfo);
+		// Parse stored user info as JSON
+		const userInfo = JSON.parse(userJson);
+		const user = new User(userKey, userInfo);
+		// Credentials check
 
-		// Update the ledger
-		await ctx.stub.putState(userKey, Buffer.from(JSON.stringify(updatedUser)));
+		if (user.isActive()) {
+			// Update the user object (User class not necessary here)
+			const user = JSON.parse(userJson);
+			const updatedUser = Object.assign(user, updatedUserInfo);
 
-		delete updatedUser.password;
+			// Update the ledger
+			await ctx.stub.putState(userKey, Buffer.from(JSON.stringify(updatedUser)));
 
-		// Add transaction info
-		const txID = await ctx.stub.getTxID();
-		Object.assign(updatedUser, { txID });
+			delete updatedUser.password;
 
-		// Return to apps
+			// Add transaction info
+			const txID = await ctx.stub.getTxID();
+			Object.assign(updatedUser, { txID });
+
+			// Return to apps
+			return {
+				success: true,
+				data: updatedUser,
+				error: null,
+			};
+		}
+
 		return {
-			success: true,
-			data: updatedUser,
-			error: null,
+			success: false,
+			data: null,
+			error: 'User not active, please activate user',
 		};
 	}
 

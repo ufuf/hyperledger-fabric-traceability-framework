@@ -42,11 +42,9 @@ const updateUserValidator = celebrate({
 	body: Joi.object().keys({
 		password: Joi.string()
 			.min(8)
-			.max(64)
-			.required(),
+			.max(64),
 		name: Joi.string()
-			.max(64)
-			.required(),
+			.max(64),
 	})
 });
 
