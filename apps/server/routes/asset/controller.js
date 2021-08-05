@@ -13,6 +13,7 @@ class AssetsController {
 			createdAt: new Date(),
 			id: req.body.id,
 			name: req.body.name,
+			data: req.body.data
 		};
 		let result = null;
 		try {
