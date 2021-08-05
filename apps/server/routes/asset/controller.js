@@ -73,6 +73,7 @@ class AssetsController {
 
 		//TODO: updatedAt tarihi eklenmeli.
 		//TODO: extraData silinmeli veya eklenmeli.
+		//TODO: ShopData ekleyelim lokasyonlarla beraber.
 
 		let result = null;
 		try {

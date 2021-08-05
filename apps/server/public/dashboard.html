@@ -32,10 +32,6 @@
     }
   </style>
 
-
-  <!-- Custom styles for this template -->
-  <link href="dashboard.css" rel="stylesheet">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -65,10 +61,21 @@
           <h1 class="h2">Battery Tracker <span data-feather="battery"></span></h1>
         </div>
 
-        <h2>Output</h2>
-        <div class="table-responsive">
-          <pre id="json">
-          </pre>
+        <h2>Bilgiler</h2>
+        <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+          id="infoBox">
+        </div>
+
+        <h2>İşlemler</h2>
+        <div class="row">
+          <div class="table-responsive col-md-6 col-lg-6 px-md-4">
+            <ol class="list-group list-group-numbered" id="olPanel">
+
+            </ol>
+          </div>
+          <div class="table-responsive col-md-6 col-lg-6 px-md-4" id="maps">
+
+          </div>
         </div>
       </main>
     </div>
@@ -125,10 +132,54 @@
         };
 
         $.ajax(settings).done(function (response) {
-          document.getElementById("json").textContent = JSON.stringify(response, undefined, 2);
+          $('#olPanel').html("");
+          $('#infoBox').html("");
+          $('#maps').html("");
+
+          response.data.forEach((element, index) => {
+            if (index == 0) {
+              let infoHtml = "<div class=\"fw-bold\">" + element.name + "</div>" +
+                "Make: " + element.make + "</br>" +
+                "Model: " + element.model + "</br>" +
+                "Serial Number: " + element.serialNumber + "</br>" +
+                "Production Date: " + element.productionDate + "</br>" +
+                "Extra Data: " + JSON.stringify(element.extraData) + "" +
+                "</div>";
+
+              $('#infoBox').append('' + infoHtml);
+
+              let mapsHtml = "<iframe " +
+                "src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3192.5228303927906!2d28.269106150690707!3d36.85390247983918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bfbddcb1d2e293%3A0xf88b21eaecc85d7f!2sTurkcell%20Ileti%C5%9Fim%20Merkezi!5e0!3m2!1sen!2str!4v1628193932552!5m2!1sen!2str\"" +
+                "width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>";
+
+              $('#maps').append('' + mapsHtml);
+            }
+
+            let innerHtml =
+              "<li class=\"list-group-item d-flex justify-content-between align-items-start\">";
+
+            innerHtml += element.currentState == "SOLD TO CUSTOMER" ?
+              "<span class=\"badge bg-success rounded-pill\">" + element.currentState + "</span></br></br>" + " <span class=\"float-end\" " + "data-feather=\"dollar-sign\">" :
+              element.currentState == "IN FULLFILLMENT CENTER" ?
+                "<span class=\"badge bg-info text-dark rounded-pill\">" + element.currentState + "</span></br></br>" + " <span class=\"float-end\" " + "data-feather=\"package\">" :
+                element.currentState == "IN SHOP" ?
+                  "<span class=\"badge bg-warning text-dark rounded-pill\">" + element.currentState + "</span></br></br>" + " <span class=\"float-end\" " + "data-feather=\"shopping-bag\">" :
+                  "<span class=\"badge bg-secondary rounded-pill\">" + element.currentState + "</span></br></br>" + " <span class=\"float-end\" " + "data-feather=\"truck\">";
+
+            innerHtml += "</span></li>";
+
+            $('#olPanel').append('' + innerHtml);
+            feather.replace();
+          });
+        }).fail(function (response) {
+          $('#olPanel').html("");
+          $('#infoBox').html("");
+          $('#maps').html("");
+          alert(response.responseJSON.error);
         });
       }
     });
+
   </script>
 </body>
 
