@@ -38,7 +38,7 @@ class AssetsController {
 
 	async updateAsset(req, res, next) {
 		const updatedAssetInfo = req.body;
-		updatedAssetInfo.id = req.user.id;
+		updatedAssetInfo.id = req.body.id;
 		let result = null;
 		try {
 			result = await assetsService.updateAsset(updatedAssetInfo);
