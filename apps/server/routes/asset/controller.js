@@ -1,6 +1,11 @@
 const AssetsService = require('./service');
 const assetsService = new AssetsService();
 
+const {
+	BadRequest,
+	NotFound,
+} = require('../../error-handling/errors');
+
 class AssetsController {
 
 	async addAsset(req, res, next) {
