@@ -17,6 +17,7 @@ const bodyParser = require('body-parser');
 app.use(cors());
 app.use(helmet()); // Sets response headers securely
 // app.use(serveStatic(path.join(__dirname, 'public'))); // Static files serving
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false })); // form urlencoded data
 app.use(bodyParser.json()); // json data
 app.use(bodyParser.text()); // text data
