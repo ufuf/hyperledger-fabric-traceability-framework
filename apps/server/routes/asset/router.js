@@ -23,6 +23,10 @@ assetsRouter.get('/', getAssetValidator, (req, res, next) => {
 	assetsController.getAsset(req, res, next);
 });
 
+assetsRouter.get('/history', getAssetValidator, (req, res, next) => {
+	assetsController.getAssetHistory(req, res, next);
+});
+
 assetsRouter.patch('/', updateAssetValidator, (req, res, next) => {
 	assetsController.updateAsset(req, res, next);
 });

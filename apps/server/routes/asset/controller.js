@@ -42,6 +42,20 @@ class AssetsController {
 		res.status(200).json(result);
 	}
 
+	async getAssetHistory(req, res, next) {
+		const updatedAssetInfo = req.body;
+		updatedAssetInfo.id = req.body.id;
+
+		let result = null;
+		try {
+			result = await assetsService.getAssetHistory(updatedAssetInfo);
+		} catch (e) {
+			next(e);
+			return null;
+		}
+		res.status(200).json(result);
+	}
+
 	async updateAsset(req, res, next) {
 		const updatedAssetInfo = req.body;
 		updatedAssetInfo.id = req.body.id;
