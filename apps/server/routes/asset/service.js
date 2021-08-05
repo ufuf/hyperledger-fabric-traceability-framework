@@ -34,17 +34,6 @@ class AssetService {
 		}
 		return result;
 	}
-
-	async setIntermediaryState(assetInfo) {
-		const result = await assetContractWrapper.submitTransaction('setIntermediaryState', assetInfo);
-		if (result.error === 'Asset not found in the ledger') {
-			throw new NotFound(result.error);
-		}
-		if (result.error === 'Asset status is not INITIAL, cannot move to INTERMEDIARY state') {
-			throw new BadRequest(result.error);
-		}
-		return result;
-	}
 }
 
 module.exports = AssetService;

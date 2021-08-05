@@ -48,18 +48,6 @@ class AssetsController {
 		}
 		res.status(200).json(result);
 	}
-
-	async setIntermediaryState(req, res, next) {
-		const assetInfo = req.user;
-		let result = null;
-		try {
-			result = await assetsService.setIntermediaryState(assetInfo);
-		} catch (e) {
-			next(e);
-			return null; // Execution continues after the next() call finishes, so we have to 'return' here to avoid sending a response to clients twice
-		}
-		res.status(200).json(result);
-	}
 }
 
 module.exports = AssetsController;

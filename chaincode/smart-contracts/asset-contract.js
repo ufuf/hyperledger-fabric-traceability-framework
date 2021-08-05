@@ -138,53 +138,6 @@ class AssetContract extends Contract {
 			error: null,
 		};
 	}
-
-	async setIntermediaryState(ctx, infoJson) {
-		// Transform JSON into an object
-		const info = JSON.parse(infoJson);
-
-		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
-		const assetJsonBuffer = await ctx.stub.getState(assetKey);
-		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson) {
-			return {
-				success: false,
-				data: null,
-				error: 'Asset not found in the ledger',
-			};
-		}
-
-		// Create and update Asset object
-		const storedAssetInfo = JSON.parse(assetJson);
-		Object.assign(storedAssetInfo, info);
-		const asset = new Asset(assetKey, storedAssetInfo);
-
-		// Status update
-		if (asset.isInitial()) {
-			asset.setIntermediary();
-		} else {
-			return {
-				success: false,
-				data: null,
-				error: 'Asset status is not INITIAL, cannot move to INTERMEDIARY state',
-			};
-		}
-
-		// Add transaction info
-		const txID = await ctx.stub.getTxID();
-		Object.assign(asset, { txID });
-
-		// Update the ledger
-		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(asset)));
-
-		// Return to apps
-		return {
-			success: true,
-			data: asset,
-			error: null,
-		};
-	}
 }
 
 module.exports = AssetContract;

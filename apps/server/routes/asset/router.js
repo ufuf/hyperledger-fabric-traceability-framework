@@ -27,8 +27,4 @@ assetsRouter.patch('/', updateAssetValidator, (req, res, next) => {
 	assetsController.updateAsset(req, res, next);
 });
 
-assetsRouter.post('/set-intermediary', (req, res, next) => {
-	assetsController.setIntermediaryState(req, res, next);
-});
-
 module.exports = assetsRouter;

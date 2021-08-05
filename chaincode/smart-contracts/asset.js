@@ -5,8 +5,9 @@
  */
 const state = {
     INITIAL: 'INITIAL',
-    INTERMEDIARY: 'INTERMEDIARY',
-    FINAL: 'FINAL',
+    INFULLFILLMENT: 'IN FULLFILLMENT CENTER',
+    INSHOP: 'IN SHOP',
+    FINAL: 'SOLD TO CUSTOMER',
 };
 
 /**
@@ -53,22 +54,29 @@ class Asset {
         return this.currentState === state.INITIAL;
     }
 
-    setIntermediary() {
-        this.currentState = state.INTERMEDIARY;
+    setINFULLFILLMENT() {
+        this.currentState = state.INFULLFILLMENT;
     }
 
-    isIntermediary() {
-        return this.currentState === state.INTERMEDIARY;
+    isINFULLFILLMENT() {
+        return this.currentState === state.INFULLFILLMENT;
     }
 
-    setFinal() {
+    setINSHOP() {
+        this.currentState = state.INSHOP;
+    }
+
+    isINSHOP() {
+        return this.currentState === state.INSHOP;
+    }
+
+    setFINAL() {
         this.currentState = state.FINAL;
     }
 
-    isFinal() {
+    isFINAL() {
         return this.currentState === state.FINAL;
     }
-
 }
 
 module.exports = Asset;
