@@ -43,8 +43,8 @@ class AssetsController {
 	}
 
 	async getAssetHistory(req, res, next) {
-		const updatedAssetInfo = req.body;
-		updatedAssetInfo.id = req.body.id;
+		const updatedAssetInfo = req.params;
+		updatedAssetInfo.id = req.params.id;
 
 		let result = null;
 		try {
