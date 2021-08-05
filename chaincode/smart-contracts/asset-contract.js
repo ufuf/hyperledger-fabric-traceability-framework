@@ -43,19 +43,19 @@ class AssetContract extends Contract {
 	async addAsset(ctx, assetInfoJson) {
 		// Transform JSON into an object
 		const assetInfo = JSON.parse(assetInfoJson);
-		
+
 		// Asset existence check
 		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetInfo.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
-		if (assetJson){
+		if (assetJson) {
 			return {
 				success: false,
 				data: null,
 				error: 'Asset already exists in the ledger',
 			};
 		}
-		
+
 		// Create and update Asset object
 		const asset = new Asset(assetKey, assetInfo);
 
@@ -77,42 +77,6 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async authenticateAsset(ctx, assetCredentialsJson) {
-		// Transform JSON into an object
-		const assetCredentials = JSON.parse(assetCredentialsJson);
-
-		// Asset existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetCredentials.id]);
-		const assetJsonBuffer = await ctx.stub.getState(assetKey);
-		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson){
-			return {
-				success: false,
-				data: null,
-				error: 'Asset not found in the ledger',
-			};
-		}
-
-		// Parse stored asset info as JSON
-		const asset = JSON.parse(assetJson);
-
-		// Credentials check
-		if (assetCredentials.password === asset.password){
-			return {
-				success: true,
-				data: asset,
-				error: null,
-			};
-		}
-
-		// Return to apps
-		return {
-			success: false,
-			data: null,
-			error: 'Incorrect password, please try again',
-		};
-	}
-
 	async getAsset(ctx, assetIdJson) {
 		// Transform JSON into an object
 		const assetId = JSON.parse(assetIdJson);
@@ -121,7 +85,7 @@ class AssetContract extends Contract {
 		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson){
+		if (!assetJson) {
 			return {
 				success: false,
 				data: null,
@@ -148,7 +112,7 @@ class AssetContract extends Contract {
 		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [updatedAssetInfo.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson){
+		if (!assetJson) {
 			return {
 				success: false,
 				data: null,
@@ -162,8 +126,6 @@ class AssetContract extends Contract {
 
 		// Update the ledger
 		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(updatedAsset)));
-
-		delete updatedAsset.password;
 
 		// Add transaction info
 		const txID = await ctx.stub.getTxID();
@@ -180,26 +142,26 @@ class AssetContract extends Contract {
 	async setIntermediaryState(ctx, infoJson) {
 		// Transform JSON into an object
 		const info = JSON.parse(infoJson);
-		
+
 		// Worker existence check
 		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [info.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson){
+		if (!assetJson) {
 			return {
 				success: false,
 				data: null,
 				error: 'Asset not found in the ledger',
 			};
 		}
-		
+
 		// Create and update Asset object
 		const storedAssetInfo = JSON.parse(assetJson);
 		Object.assign(storedAssetInfo, info);
 		const asset = new Asset(assetKey, storedAssetInfo);
 
 		// Status update
-		if(asset.isInitial()){
+		if (asset.isInitial()) {
 			asset.setIntermediary();
 		} else {
 			return {
@@ -208,11 +170,11 @@ class AssetContract extends Contract {
 				error: 'Asset status is not INITIAL, cannot move to INTERMEDIARY state',
 			};
 		}
-		
+
 		// Add transaction info
 		const txID = await ctx.stub.getTxID();
 		Object.assign(asset, { txID });
-		
+
 		// Update the ledger
 		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(asset)));
 
@@ -222,7 +184,7 @@ class AssetContract extends Contract {
 			data: asset,
 			error: null,
 		};
-	}	
+	}
 }
 
 module.exports = AssetContract;

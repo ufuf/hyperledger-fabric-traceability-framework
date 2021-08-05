@@ -1,27 +1,11 @@
 const { celebrate, Joi } = require('celebrate');
 
 const addAssetValidator = celebrate({
-  body: Joi.object().keys({ // The req.body object must be populated prior to the validation
+	body: Joi.object().keys({ // The req.body object must be populated prior to the validation
 		id: Joi.string()
-			.max(64)
-			.required(),
-		password: Joi.string()
-			.min(8)
 			.max(64)
 			.required(),
 		name: Joi.string()
-			.max(64)
-			.required(),
-	})
-});
-
-const authenticateAssetValidator = celebrate({
-  body: Joi.object().keys({
-		id: Joi.string()
-			.max(64)
-			.required(),
-		password: Joi.string()
-			.min(8)
 			.max(64)
 			.required(),
 	})
@@ -39,11 +23,7 @@ const getAssetValidator = celebrate({
 });
 
 const updateAssetValidator = celebrate({
-  body: Joi.object().keys({
-		password: Joi.string()
-			.min(8)
-			.max(64)
-			.required(),
+	body: Joi.object().keys({
 		name: Joi.string()
 			.max(64)
 			.required(),
@@ -52,7 +32,7 @@ const updateAssetValidator = celebrate({
 
 // const setIntermediateStateValidator = celebrate({
 //   body: Joi.object().keys({ // The req.body object must be populated prior to the validation
-		
+
 // 	})
 // });
 
@@ -60,7 +40,6 @@ const updateAssetValidator = celebrate({
 // All of these are middleware (a.k.a. functions)
 module.exports = {
 	addAssetValidator,
-	authenticateAssetValidator,
 	getAssetValidator,
 	updateAssetValidator,
 };

@@ -3,17 +3,12 @@ const JwtService = require('../../authentication/jwt.service');
 const AssetsController = require('./controller');
 const {
 	addAssetValidator,
-	authenticateAssetValidator,
 	getAssetValidator,
 	updateAssetValidator,
 } = require('./validator');
 
 const assetsRouter = express.Router();
 const assetsController = new AssetsController();
-
-// assetsRouter.post('/login', authenticateAssetValidator, (req, res, next) => {
-// 	assetsController.authenticateAsset(req, res, next);
-// });
 
 // JWT protection for the endpoints below
 const jwtService = new JwtService();
