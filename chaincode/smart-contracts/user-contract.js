@@ -61,8 +61,6 @@ class UserContract extends Contract {
 
 		// Status update
 		user.setActive();
-		user.createdAt = new Date();
-		user.updatedAt = new Date();
 
 		// Add transaction info
 		const txID = await ctx.stub.getTxID();
@@ -174,7 +172,6 @@ class UserContract extends Contract {
 			// Update the user object (User class not necessary here)
 			const user = JSON.parse(userJson);
 			const updatedUser = Object.assign(user, updatedUserInfo);
-			updatedUser.updatedAt = new Date();
 
 			// Update the ledger
 			await ctx.stub.putState(userKey, Buffer.from(JSON.stringify(updatedUser)));
@@ -223,7 +220,6 @@ class UserContract extends Contract {
 		// Status update
 		if (user.isInactive()) {
 			user.setActive();
-			user.updatedAt = new Date();
 		} else {
 			return {
 				success: false,
@@ -270,7 +266,6 @@ class UserContract extends Contract {
 		// Status update
 		if (user.isActive()) {
 			user.setInactive();
-			user.updatedAt = new Date();
 		} else {
 			return {
 				success: false,
