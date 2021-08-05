@@ -71,6 +71,9 @@ class AssetsController {
 		const assetId = req.body.id;
 		const state = req.body.state;
 
+		//TODO: updatedAt tarihi eklenmeli.
+		//TODO: extraData silinmeli veya eklenmeli.
+
 		let result = null;
 		try {
 			if (state == "INFULLFILLMENT")

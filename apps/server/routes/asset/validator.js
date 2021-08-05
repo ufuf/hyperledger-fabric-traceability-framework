@@ -59,12 +59,6 @@ const updateAssetValidator = celebrate({
 			.max(64),
 		productionDate: Joi.string()
 			.max(64),
-		ShopName: Joi.string()
-			.max(64),
-		ShopAddress: Joi.string()
-			.max(200),
-		ShopLocation: Joi.string()
-			.max(64),
 		extraData: Joi.object(),
 	})
 });
