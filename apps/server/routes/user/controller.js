@@ -5,7 +5,6 @@ class UsersController {
 
 	async addUser(req, res, next) {
 		const userInfo = {
-			createdAt: new Date(),
 			id: req.body.id,
 			password: req.body.password,
 			name: req.body.name,
