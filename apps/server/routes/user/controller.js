@@ -55,8 +55,6 @@ class UsersController {
 	async updateUser(req, res, next) {
 		const updatedUserInfo = req.body;
 		updatedUserInfo.id = req.user.id;
-		updatedUserInfo.updatedAt = new Date();
-
 		let result = null;
 		try {
 			result = await usersService.updateUser(updatedUserInfo);
@@ -69,7 +67,6 @@ class UsersController {
 
 	async setActiveState(req, res, next) {
 		const userInfo = req.user;
-		userInfo.updatedAt = new Date();
 
 		let result = null;
 		try {
@@ -83,7 +80,6 @@ class UsersController {
 
 	async setInActiveState(req, res, next) {
 		const userInfo = req.user;
-		userInfo.updatedAt = new Date();
 
 		let result = null;
 		try {

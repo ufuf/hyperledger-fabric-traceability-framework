@@ -104,34 +104,6 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async getAssetHistory(ctx, assetIdJson) {
-		// Transform JSON into an object
-		const assetId = JSON.parse(assetIdJson);
-
-		// Asset existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
-		const assetJsonBuffer = await ctx.stub.getState(assetKey);
-		const assetJson = assetJsonBuffer.toString();
-		if (!assetJson) {
-			return {
-				success: false,
-				data: null,
-				error: 'Asset not found in the ledger',
-			};
-		}
-
-		// Parse stored asset info as JSON
-		const asset = JSON.parse(assetJson);
-
-		// Return to apps
-		return {
-			success: true,
-			data: asset,
-			error: null,
-		};
-	}
-
 	async updateAsset(ctx, updatedAssetInfoJson) {
 		// Transform JSON into an object
 		const updatedAssetInfo = JSON.parse(updatedAssetInfoJson);
@@ -179,12 +151,12 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINFULLFILLMENTState(ctx, updatedAssetInfoJson) {
+	async setINFULLFILLMENTState(ctx, assetIdJson) {
 		// Transform JSON into an object
-		const assetInfo = JSON.parse(updatedAssetInfoJson);
+		const assetId = JSON.parse(assetIdJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetInfo.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -202,7 +174,6 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isInitial() || asset.isINSHOP()) {
 			asset.setINFULLFILLMENT();
-			asset.updatedAt = assetInfo.updatedAt;
 		} else {
 			return {
 				success: false,
@@ -226,12 +197,12 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINSHOPState(ctx, updatedAssetInfoJson) {
+	async setINSHOPState(ctx, assetIdJson) {
 		// Transform JSON into an object
-		const assetInfo = JSON.parse(updatedAssetInfoJson);
+		const assetId = JSON.parse(assetIdJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetInfo.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -249,7 +220,6 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isINFULLFILLMENT()) {
 			asset.setINSHOP();
-			asset.updatedAt = assetInfo.updatedAt;
 		} else {
 			return {
 				success: false,
@@ -274,12 +244,12 @@ class AssetContract extends Contract {
 	}
 
 
-	async setCUSTOMERState(ctx, updatedAssetInfoJson) {
+	async setCUSTOMERState(ctx, assetIdJson) {
 		// Transform JSON into an object
-		const assetInfo = JSON.parse(updatedAssetInfoJson);
+		const assetId = JSON.parse(assetIdJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetInfo.id]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -297,7 +267,6 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isINSHOP()) {
 			asset.setCUSTOMER();
-			asset.updatedAt = assetInfo.updatedAt;
 		} else {
 			return {
 				success: false,
