@@ -29,7 +29,7 @@ class AssetsController {
 		const query = {
 			selector: {
 				contractNamespace: 'traceabilitysc.asset',
-				id: req.body.id,
+				id: req.params.id,
 			}
 		};
 		let result = null;
@@ -45,7 +45,7 @@ class AssetsController {
 	async getAssetHistory(req, res, next) {
 		const updatedAssetInfo = req.params;
 		updatedAssetInfo.id = req.params.id;
-		console.log(updatedAssetInfo);
+		
 		let result = null;
 		try {
 			result = await assetsService.getAssetHistory(updatedAssetInfo);

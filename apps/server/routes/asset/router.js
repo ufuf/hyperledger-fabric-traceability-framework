@@ -20,11 +20,11 @@ assetsRouter.post('/', addAssetValidator, (req, res, next) => {
 	assetsController.addAsset(req, res, next);
 });
 
-assetsRouter.get('/', getAssetValidator, (req, res, next) => {
+assetsRouter.get('/:id', getAssetValidator, (req, res, next) => {
 	assetsController.getAsset(req, res, next);
 });
 
-assetsRouter.get('/history', getAssetHistoryValidator, (req, res, next) => {
+assetsRouter.get('/history/:id', getAssetHistoryValidator, (req, res, next) => {
 	assetsController.getAssetHistory(req, res, next);
 });
 
