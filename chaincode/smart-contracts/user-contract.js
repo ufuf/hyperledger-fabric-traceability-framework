@@ -202,7 +202,6 @@ class UserContract extends Contract {
 
 		// Create and update User object
 		const storedUserInfo = JSON.parse(userJson);
-		Object.assign(storedUserInfo, info);
 		const user = new User(userKey, storedUserInfo);
 
 		// Status update
@@ -249,7 +248,6 @@ class UserContract extends Contract {
 
 		// Create and update User object
 		const storedUserInfo = JSON.parse(userJson);
-		Object.assign(storedUserInfo, info);
 		const user = new User(userKey, storedUserInfo);
 
 		// Status update
