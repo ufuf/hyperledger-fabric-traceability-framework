@@ -24,6 +24,15 @@ const getAssetValidator = celebrate({
 	}),
 });
 
+
+const getAssetHistoryValidator = celebrate({
+	query: Joi.object().keys({
+		id: Joi.number()
+			.integer()
+			.positive(),
+	}),
+});
+
 const updateAssetValidator = celebrate({
 	body: Joi.object().keys({
 		id: Joi.string()
@@ -46,5 +55,6 @@ const updateAssetValidator = celebrate({
 module.exports = {
 	addAssetValidator,
 	getAssetValidator,
+	getAssetHistoryValidator,
 	updateAssetValidator,
 };

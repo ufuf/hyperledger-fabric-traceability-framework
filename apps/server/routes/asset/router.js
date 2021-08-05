@@ -4,6 +4,7 @@ const AssetsController = require('./controller');
 const {
 	addAssetValidator,
 	getAssetValidator,
+	getAssetHistoryValidator,
 	updateAssetValidator,
 } = require('./validator');
 
@@ -23,7 +24,7 @@ assetsRouter.get('/', getAssetValidator, (req, res, next) => {
 	assetsController.getAsset(req, res, next);
 });
 
-assetsRouter.get('/history', getAssetValidator, (req, res, next) => {
+assetsRouter.get('/history', getAssetHistoryValidator, (req, res, next) => {
 	assetsController.getAssetHistory(req, res, next);
 });
 
