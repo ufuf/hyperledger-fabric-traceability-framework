@@ -79,7 +79,8 @@ class Asset {
     }
 
     setUpdatedAt() {
-        this.updatedAt = JSON.stringify(new Date());
+        let d = new Date();
+        this.updatedAt = JSON.stringify(d);
     }
 }
 
