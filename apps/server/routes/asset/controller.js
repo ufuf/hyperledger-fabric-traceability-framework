@@ -75,6 +75,7 @@ class AssetsController {
 		//TODO: extraData silinmeli veya eklenmeli.
 		//TODO: ShopData ekleyelim lokasyonlarla beraber.
 
+
 		let result = null;
 		try {
 			if (state == "INFULLFILLMENT")

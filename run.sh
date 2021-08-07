@@ -7,8 +7,11 @@ echo "===== Running Traceability framework's back-end in development mode ====="
 echo " "
 
 cd ./blockchain-explorer/
-docker-compose -f docker-compose.yaml down
+docker-compose -f docker-compose.yaml down -v
+docker-compose rm -v
+kill -9 $(sudo lsof -t -i:'5000')
 # The above command is necessary to remove active endpoints in the net_byfn Docker network before attempting to remove it
+
 cd ../blockchain-network/ 
 ./network.sh down
 ./network.sh generate
