@@ -157,7 +157,7 @@
 
             let innerHtml =
               "<li class=\"list-group-item d-flex justify-content-between align-items-start\">";
-            innerHtml += "<div class=\"fw-bold flex-fill\">" + element.createdAt + "</div>";
+            innerHtml += "<div class=\"fw-bold flex-fill\">" + element.updatedAt + "</div>";
             innerHtml += element.currentState == "SOLD TO CUSTOMER" ?
               "<span class=\"badge bg-success rounded-pill me-auto\">" + element.currentState + "</span>&nbsp&nbsp" + " <span class=\"float-end me-auto\" " + "data-feather=\"dollar-sign\">" :
               element.currentState == "IN FULLFILLMENT CENTER" ?
