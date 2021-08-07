@@ -196,10 +196,10 @@
       let transactionDetail = "<pre>" + JSON.stringify(element, null, 2) + "</pre>";
       $('#transactionDetail').append('' + transactionDetail);
 
-      if (element.extraData.ShopLocation) {
+      if (element.extraData.Location) {
         let mapsHtml = "<div class=\"d-flex justify-content-center\" id=\"loading\"><div class=\"spinner-border\" role=\"status\"></div></div>";
         mapsHtml += "<iframe " +
-          "src=\"https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=" + element.extraData.ShopLocation + "&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed\"" +
+          "src=\"https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=" + element.extraData.Location + "&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed\"" +
           "width=\"600\" height=\"450\" style=\"border:0; opacity: 0;\" allowfullscreen=\"\" loading=\"lazy\" id=\"iframe\"></iframe>";
 
         $('#maps').html('' + mapsHtml);
