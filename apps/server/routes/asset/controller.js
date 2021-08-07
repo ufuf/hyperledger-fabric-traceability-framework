@@ -72,10 +72,8 @@ class AssetsController {
 		const assetId = req.body.id;
 		const state = req.body.state;
 
-		//TODO: Template azan yerleri temizle.
 		//TODO: extraData silinmeli veya eklenmeli.
 		//TODO: ShopData ekleyelim lokasyonlarla beraber.
-
 
 		let result = null;
 		try {

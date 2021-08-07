@@ -4,10 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.87.0">
-  <title>Dashboard Template · Bootstrap v5.1</title>
+  <title>TURKCELL POC Dashboard</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
@@ -68,14 +65,24 @@
 
         <h2>İşlemler</h2>
         <div class="row">
-          <div class="table-responsive col-md-6 col-lg-6 px-md-4">
-            <ol class="list-group list-group-numbered" id="olPanel">
+          <div class="row">
+            <div class="col">
+              <ol class="list-group list-group-numbered border-bottom pt-3 pb-2 mb-3 " id="olPanel">
 
-            </ol>
-          </div>
-          <div class="table-responsive col-md-6 col-lg-6 px-md-4" id="maps">
+              </ol>
 
+              <h4>İşlem Detayı</h4>
+              <div id="transactionDetail">
+
+              </div>
+            </div>
+            <div class="col">
+              <div id="maps">
+
+              </div>
+            </div>
           </div>
+
         </div>
       </main>
     </div>
@@ -89,6 +96,8 @@
     crossorigin="anonymous"></script>
   <script src="/js/dashboard.js"></script>
   <script>
+    let data;
+
     const parseCookie = str =>
       str
         .split(';')
@@ -134,7 +143,9 @@
         $.ajax(settings).done(function (response) {
           $('#olPanel').html("");
           $('#infoBox').html("");
-          $('#maps').html("");
+
+
+          data = response.data;
 
           response.data.forEach((element, index) => {
             if (index == 0) {
@@ -143,23 +154,16 @@
                 "Model: " + element.model + "</br>" +
                 "Serial Number: " + element.serialNumber + "</br>" +
                 "Production Date: " + element.productionDate + "</br>" +
-                "Extra Data: " + JSON.stringify(element.extraData) + "" +
                 "</div>";
 
               $('#infoBox').append('' + infoHtml);
-
-              let mapsHtml = "<iframe " +
-                "src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3192.5228303927906!2d28.269106150690707!3d36.85390247983918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bfbddcb1d2e293%3A0xf88b21eaecc85d7f!2sTurkcell%20Ileti%C5%9Fim%20Merkezi!5e0!3m2!1sen!2str!4v1628193932552!5m2!1sen!2str\"" +
-                "width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>";
-
-              $('#maps').append('' + mapsHtml);
             }
 
             let date = new Date(element.updatedAt);
             let dateStr = date.toLocaleString();
 
             let innerHtml =
-              "<li class=\"list-group-item d-flex justify-content-between align-items-start\">";
+              "<li class=\"list-group-item  list-group-item-action d-flex justify-content-between align-items-start\" onclick=\"showDetail(" + index + ");\">";
             innerHtml += "<div class=\"fw-bold flex-fill\">" + dateStr + "</div>";
             innerHtml += element.currentState == "SOLD TO CUSTOMER" ?
               "<span class=\"badge bg-success rounded-pill me-auto\">" + element.currentState + "</span>&nbsp&nbsp" + " <span class=\"float-end me-auto\" " + "data-feather=\"dollar-sign\">" :
@@ -182,6 +186,35 @@
         });
       }
     });
+
+    function showDetail(index) {
+      let element = data[index];
+
+      $('#maps').html("");
+      $('#transactionDetail').html("");
+
+      let transactionDetail = "<pre>" + JSON.stringify(element, null, 2) + "</pre>";
+      $('#transactionDetail').append('' + transactionDetail);
+
+      if (element.extraData.ShopLocation) {
+        let mapsHtml = "<div class=\"d-flex justify-content-center\" id=\"loading\"><div class=\"spinner-border\" role=\"status\"></div></div>";
+        mapsHtml += "<iframe " +
+          "src=\"https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=" + element.extraData.ShopLocation + "&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed\"" +
+          "width=\"600\" height=\"450\" style=\"border:0; opacity: 0;\" allowfullscreen=\"\" loading=\"lazy\" id=\"iframe\"></iframe>";
+
+        $('#maps').html('' + mapsHtml);
+
+        const iframeEle = document.getElementById('iframe');
+        const loadingEle = document.getElementById('loading');
+
+        iframeEle.addEventListener('load', function () {
+          // Hide the loading indicator
+          loadingEle.style.opacity = 0;
+          // Bring the iframe back
+          iframeEle.style.opacity = 1;
+        });
+      }
+    }
 
   </script>
 </body>
