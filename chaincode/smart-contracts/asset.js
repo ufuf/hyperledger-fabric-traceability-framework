@@ -77,6 +77,10 @@ class Asset {
     isCUSTOMER() {
         return this.currentState === state.CUSTOMER;
     }
+
+    setUpdatedAt() {
+        this.updatedAt = new Date();
+    }
 }
 
 module.exports = Asset;

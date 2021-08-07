@@ -61,6 +61,7 @@ class AssetContract extends Contract {
 
 		// Status update
 		asset.setInitial();
+		asset.setUpdatedAt();
 
 		// Add transaction info
 		const txID = await ctx.stub.getTxID();
@@ -136,6 +137,8 @@ class AssetContract extends Contract {
 		const asset = JSON.parse(assetJson);
 		const updatedAsset = Object.assign(asset, updatedAssetInfo);
 
+		updatedAsset.setUpdatedAt();
+
 		// Update the ledger
 		await ctx.stub.putState(assetKey, Buffer.from(JSON.stringify(updatedAsset)));
 
@@ -174,6 +177,7 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isInitial() || asset.isINSHOP()) {
 			asset.setINFULLFILLMENT();
+			asset.setUpdatedAt();
 		} else {
 			return {
 				success: false,
@@ -220,6 +224,7 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isINFULLFILLMENT()) {
 			asset.setINSHOP();
+			asset.setUpdatedAt();
 		} else {
 			return {
 				success: false,
@@ -267,6 +272,7 @@ class AssetContract extends Contract {
 		// Status update
 		if (asset.isINSHOP()) {
 			asset.setCUSTOMER();
+			asset.setUpdatedAt();
 		} else {
 			return {
 				success: false,
