@@ -69,7 +69,7 @@ class AssetsController {
 	}
 
 	async setState(req, res, next) {
-		const assetId = req.body.id;
+		const stateAssetInfo = req.body;
 		const state = req.body.state;
 
 		//TODO: extraData silinmeli veya eklenmeli.
@@ -78,11 +78,11 @@ class AssetsController {
 		let result = null;
 		try {
 			if (state == "INFULLFILLMENT")
-				result = await assetsService.setINFULLFILLMENTState(assetId);
+				result = await assetsService.setINFULLFILLMENTState(stateAssetInfo);
 			else if (state == "INSHOP")
-				result = await assetsService.setINSHOPState(assetId);
+				result = await assetsService.setINSHOPState(stateAssetInfo);
 			else if (state == "CUSTOMER")
-				result = await assetsService.setCUSTOMERState(assetId);
+				result = await assetsService.setCUSTOMERState(stateAssetInfo);
 			else
 				throw new BadRequest("Unknown or intransferable state");
 		} catch (e) {

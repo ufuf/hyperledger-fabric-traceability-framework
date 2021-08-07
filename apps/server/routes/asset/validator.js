@@ -58,8 +58,19 @@ const updateAssetValidator = celebrate({
 		serialNumber: Joi.string()
 			.max(64),
 		productionDate: Joi.string()
+			.max(64)
+	})
+});
+
+const setStateAssetValidator = celebrate({
+	body: Joi.object().keys({
+		id: Joi.string()
+			.max(64)
+			.required(),
+		state: Joi.string()
 			.max(64),
-		extraData: Joi.object(),
+		extraData: Joi.object()
+			.required(),
 	})
 });
 
@@ -68,5 +79,6 @@ module.exports = {
 	addAssetValidator,
 	getAssetValidator,
 	getAssetHistoryValidator,
+	setStateAssetValidator,
 	updateAssetValidator,
 };

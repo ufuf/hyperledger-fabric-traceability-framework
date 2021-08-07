@@ -155,12 +155,12 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINFULLFILLMENTState(ctx, assetIdJson) {
+	async setINFULLFILLMENTState(ctx, stateAssetInfoJson) {
 		// Transform JSON into an object
-		const assetId = JSON.parse(assetIdJson);
+		const stateAssetInfo = JSON.parse(stateAssetInfoJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [stateAssetInfo.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -179,6 +179,7 @@ class AssetContract extends Contract {
 		if (asset.isInitial() || asset.isINSHOP()) {
 			asset.setINFULLFILLMENT();
 			asset.setUpdatedAt();
+			asset.extraData = stateAssetInfo.extraData;
 		} else {
 			return {
 				success: false,
@@ -202,12 +203,12 @@ class AssetContract extends Contract {
 		};
 	}
 
-	async setINSHOPState(ctx, assetIdJson) {
+	async setINSHOPState(ctx, stateAssetInfoJson) {
 		// Transform JSON into an object
-		const assetId = JSON.parse(assetIdJson);
+		const stateAssetInfo = JSON.parse(stateAssetInfoJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [stateAssetInfo.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -226,6 +227,7 @@ class AssetContract extends Contract {
 		if (asset.isINFULLFILLMENT()) {
 			asset.setINSHOP();
 			asset.setUpdatedAt();
+			asset.extraData = stateAssetInfo.extraData;
 		} else {
 			return {
 				success: false,
@@ -250,12 +252,12 @@ class AssetContract extends Contract {
 	}
 
 
-	async setCUSTOMERState(ctx, assetIdJson) {
+	async setCUSTOMERState(ctx, stateAssetInfoJson) {
 		// Transform JSON into an object
-		const assetId = JSON.parse(assetIdJson);
+		const stateAssetInfo = JSON.parse(stateAssetInfoJson);
 
 		// Worker existence check
-		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [assetId]);
+		const assetKey = await ctx.stub.createCompositeKey('traceabilitysc.asset', [stateAssetInfo.id]);
 		const assetJsonBuffer = await ctx.stub.getState(assetKey);
 		const assetJson = assetJsonBuffer.toString();
 		if (!assetJson) {
@@ -274,6 +276,7 @@ class AssetContract extends Contract {
 		if (asset.isINSHOP()) {
 			asset.setCUSTOMER();
 			asset.setUpdatedAt();
+			asset.extraData = stateAssetInfo.extraData;
 		} else {
 			return {
 				success: false,

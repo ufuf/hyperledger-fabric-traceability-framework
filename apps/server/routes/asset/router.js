@@ -6,6 +6,7 @@ const {
 	getAssetValidator,
 	getAssetHistoryValidator,
 	updateAssetValidator,
+	setStateAssetValidator,
 } = require('./validator');
 
 const assetsRouter = express.Router();
@@ -32,7 +33,7 @@ assetsRouter.patch('/', updateAssetValidator, (req, res, next) => {
 	assetsController.updateAsset(req, res, next);
 });
 
-assetsRouter.post('/set-state', (req, res, next) => {
+assetsRouter.post('/set-state', setStateAssetValidator, (req, res, next) => {
 	assetsController.setState(req, res, next);
 });
 

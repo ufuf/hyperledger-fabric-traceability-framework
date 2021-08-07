@@ -43,8 +43,8 @@ class AssetService {
 		return result;
 	}
 
-	async setINFULLFILLMENTState(assetId) {
-		const result = await assetContractWrapper.submitTransaction('setINFULLFILLMENTState', assetId);
+	async setINFULLFILLMENTState(stateAssetInfo) {
+		const result = await assetContractWrapper.submitTransaction('setINFULLFILLMENTState', stateAssetInfo);
 		if (result.error === 'Asset not found in the ledger') {
 			throw new NotFound(result.error);
 		}
@@ -54,8 +54,8 @@ class AssetService {
 		return result;
 	}
 
-	async setINSHOPState(assetId) {
-		const result = await assetContractWrapper.submitTransaction('setINSHOPState', assetId);
+	async setINSHOPState(stateAssetInfo) {
+		const result = await assetContractWrapper.submitTransaction('setINSHOPState', stateAssetInfo);
 		if (result.error === 'Asset not found in the ledger') {
 			throw new NotFound(result.error);
 		}
@@ -65,8 +65,8 @@ class AssetService {
 		return result;
 	}
 
-	async setCUSTOMERState(assetId) {
-		const result = await assetContractWrapper.submitTransaction('setCUSTOMERState', assetId);
+	async setCUSTOMERState(stateAssetInfo) {
+		const result = await assetContractWrapper.submitTransaction('setCUSTOMERState', stateAssetInfo);
 		if (result.error === 'Asset not found in the ledger') {
 			throw new NotFound(result.error);
 		}
