@@ -72,7 +72,7 @@ class AssetsController {
 		const assetId = req.body.id;
 		const state = req.body.state;
 
-		//TODO: updatedAt tarihi eklenmeli.
+		//TODO: Template azan yerleri temizle.
 		//TODO: extraData silinmeli veya eklenmeli.
 		//TODO: ShopData ekleyelim lokasyonlarla beraber.
 
