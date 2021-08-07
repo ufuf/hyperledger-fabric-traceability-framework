@@ -80,7 +80,7 @@ class Asset {
 
     setUpdatedAt() {
         let d = new Date();
-        this.updatedAt = JSON.stringify(d);
+        this.updatedAt = d;
     }
 }
 
