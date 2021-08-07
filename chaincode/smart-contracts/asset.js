@@ -79,7 +79,7 @@ class Asset {
     }
 
     setUpdatedAt() {
-        this.updatedAt = "ufuk";
+        this.updatedAt = JSON.stringify(new Date());
     }
 }
 
