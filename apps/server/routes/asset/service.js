@@ -28,7 +28,6 @@ class AssetService {
 	}
 
 	async getAssetHistory(updatedAssetInfo) {
-		console.log(updatedAssetInfo);
 		const result = await dataContractWrapper.evaluateTransaction('getHistoryForAssetKey', updatedAssetInfo);
 		if (result.error === 'No history for the specified key were found in the ledger') {
 			throw new NotFound('Asset not found in the ledger');
