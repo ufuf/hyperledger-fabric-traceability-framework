@@ -176,7 +176,7 @@ class AssetContract extends Contract {
 		const asset = new Asset(assetKey, storedAssetInfo);
 
 		// Status update
-		if (asset.isInitial() || asset.isINSHOP()) {
+		if (asset.isInitial() || asset.isINSHOP() || asset.isINFULLFILLMENT()) {
 			asset.setINFULLFILLMENT();
 			asset.setUpdatedAt();
 			asset.extraData = stateAssetInfo.extraData;
@@ -184,7 +184,7 @@ class AssetContract extends Contract {
 			return {
 				success: false,
 				data: null,
-				error: 'Asset status is not INITIAL or INSHOP, cannot move to FULLFILLMENT state',
+				error: 'Asset status is CUSTOMER, cannot update asset sold to CUSTOMER',
 			};
 		}
 
