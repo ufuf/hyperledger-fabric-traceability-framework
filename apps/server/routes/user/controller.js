@@ -4,8 +4,10 @@ const usersService = new UsersService();
 class UsersController {
 
 	async addUser(req, res, next) {
+		let d = new Date();
+
 		const userInfo = {
-			createdAt: new Date(),
+			createdAt: d.toString(),
 			id: req.body.id,
 			password: req.body.password,
 			name: req.body.name,

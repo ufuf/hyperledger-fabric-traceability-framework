@@ -11,7 +11,8 @@ class AssetsController {
 	async addAsset(req, res, next) {
 
 		const assetInfo = req.body;
-		assetInfo.createdAt = new Date();
+		let d = new Date();
+		assetInfo.createdAt = d.toString();
 
 		let result = null;
 		try {
