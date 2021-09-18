@@ -30,7 +30,7 @@ const api = express.Router();
 
 // Routing 
 app.get('/', async (req, res, next) => { // home endpoint
-	// res.status(200).sendFile(path.join(__dirname, 'public/index.html')); // path is used for interoperability in different OSs	
+	res.status(200).sendFile(__dirname + 'public/dashboard.html'); // path is used for interoperability in different OSs	
 	res.status(200).send('<p> Hello Traceability framework! </p>');
 });
 
